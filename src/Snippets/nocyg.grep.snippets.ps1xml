@@ -11,7 +11,7 @@
     </Header>
     <Code>
       <Script Language='PowerShell' CaretOffset='5'>
-        <![CDATA[cat 'FilePath'  | ? {$_ -match 'FindExpression'};]]>
+        <![CDATA[Get-Content 'FilePath'  | ? {$_ -match 'FindExpression'};]]>
       </Script>
     </Code>
   </Snippet>
@@ -27,7 +27,7 @@
     <Code>
       <Script Language='PowerShell' CaretOffset='5'>
         <![CDATA[Get-ChildItem -Path '#path-to-search#' -Recurse -Include '#files-to-match#' | % {
-    $Matches = cat $_  | ? {$_ -match '#expression-to-find#'};
+    $Matches = Get-Content $_  | ? {$_ -match '#expression-to-find#'};
 
     if($Matches.Count -gt 0){
         Write-Output "`r`nMatches in $($_.FullName):";
