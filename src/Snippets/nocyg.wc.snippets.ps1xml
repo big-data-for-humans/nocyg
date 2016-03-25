@@ -1,0 +1,24 @@
+<?xml version='1.0' encoding='utf-8' ?>
+<Snippets  xmlns='http://schemas.microsoft.com/PowerShell/Snippets'>
+  <Snippet Version='1.0.0'>
+    <Header>
+      <Title>wc -l (linecount)</Title>
+      <Description>
+        Template for a simple wc-like operation.
+
+        Note: this is wrapped in an invoke-command to prevent the counter $i polluting the current scope
+
+        Note: perf on large files can be tweeked by changing the readcount (1 will be awful, 1000 seems to be pretty good most of the time)
+      </Description>
+      <Author>Big Data for Humans Ltd</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Code>
+      <Script Language='PowerShell' CaretOffset='1'>
+        <![CDATA['FilePath' | invoke-command {$i = 0; Get-Content $input -ReadCount 1000 | % {$i+=$_.Length;};$i}]]>
+      </Script>
+    </Code>
+  </Snippet>
+</Snippets>
