@@ -32,7 +32,7 @@
     if($Matches.Count -gt 0){
         Write-Output "`r`nMatches in $($_.FullName):";
         Write-Output $Matches;
-}
+    }
 }]]>
       </Script>
     </Code>
