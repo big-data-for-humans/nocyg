@@ -1,0 +1,42 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<Snippets  xmlns='http://schemas.microsoft.com/PowerShell/Snippets'>
+  <Snippet Version='1.0.0'>
+    <Header>
+      <Title>grep</Title>
+      <Description>template for a simple grep</Description>
+      <Author>BIG DATA FOR HUMANS LTD</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Code>
+      <Script Language='PowerShell' CaretOffset='5'>
+        <![CDATA[Get-Content 'FilePath'  | ? {$_ -match 'FindExpression'};]]>
+      </Script>
+    </Code>
+  </Snippet>
+  <Snippet Version='1.0.0'>
+    <Header>
+      <Title>grep (recursive)</Title>
+      <Description>template for a recursive grep of a folder</Description>
+      <Author>BIG DATA FOR HUMANS LTD</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Code>
+      <Script Language='PowerShell' CaretOffset='5'>
+        <![CDATA[Get-ChildItem -Path '#path-to-search#' -Recurse -Include '#files-to-match#' | % {
+    $Matches = Get-Content $_  | ? {$_ -match '#expression-to-find#'};
+
+    if($Matches.Count -gt 0){
+        Write-Output "`r`nMatches in $($_.FullName):";
+        Write-Output $Matches;
+}
+}]]>
+      </Script>
+    </Code>
+  </Snippet>    
+</Snippets>
+
+
