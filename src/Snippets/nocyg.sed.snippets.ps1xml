@@ -1,0 +1,106 @@
+﻿<?xml version='1.0' encoding='utf-8' ?>
+<Snippets  xmlns='http://schemas.microsoft.com/PowerShell/Snippets'>
+  <Snippet Version='1.0.0'>
+    <Header>
+      <Title>sed - inline replace</Title>
+      <Description>template for a simple sed-like operation which updates a file.
+
+Note: this has *really bad performance* on anytihng other than small files.
+      </Description>
+      <Author>BIG DATA FOR HUMANS LTD</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Code>
+      <Script Language='PowerShell' CaretOffset='5'>
+        <![CDATA[(Get-Content 'FilePath') | % {$_ -replace 'FindExpression', 'ReplaceExpression'}| set-content 'FilePath';]]>
+      </Script>
+    </Code>
+  </Snippet>
+  <Snippet Version='1.0.0'>
+    <Header>
+      <Title>sed - inline replace (large)</Title>
+      <Description>template for a simple sed-like operation which updates a large file.
+
+Note: Performance can be tweaked by changing $ReadCount
+      </Description>
+      <Author>BIG DATA FOR HUMANS LTD</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Code>
+      <Script Language='PowerShell' CaretOffset='5'>
+        <![CDATA[
+$FilePath = '';
+$FindExpression = '*';
+$ReplaceExpression = '#';
+$ReadCount = 1000;
+
+$TempFilePath = "$($FilePath).tmp";
+Get-Content $FilePath -readcount $ReadCount | % {$_ | % {$_ -replace $FindExpression, $ReplaceExpression}} | add-content $TempFilePath -Encoding UTF8;
+rm $FilePath;
+ren $TempFilePath (Split-Path $FilePath -Leaf);
+]]>
+      </Script>
+    </Code>
+  </Snippet>
+  <Snippet Version='1.0.0'>
+    <Header>
+      <Title>sed</Title>
+      <Description>template for a simple sed-like operation</Description>
+      <Author>BIG DATA FOR HUMANS LTD</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Code>
+      <Script Language='PowerShell' CaretOffset='5'>
+        <![CDATA[Get-Content 'FilePath' | % {$_ -replace 'FindExpression', 'ReplaceExpression'};]]>
+      </Script>
+    </Code>
+  </Snippet>
+  <Snippet Version='1.0.0'>
+    <Header>
+      <Title>sed (large file)</Title>
+      <Description>template for a simple sed-like operation on a large file (tweak the readcount to tune perf) 
+      
+      (if it realy is a big file don't forget to pipe it somewhere)
+      </Description>
+      <Author>BIG DATA FOR HUMANS LTD</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Code>
+      <Script Language='PowerShell' CaretOffset='5'>
+        <![CDATA[Get-Content 'FilePath' -ReadCount 1000  | % { $_ | % {$_ -replace 'FindExpression', 'ReplaceExpression'}};]]>
+      </Script>
+    </Code>
+  </Snippet>
+  <Snippet Version='1.0.0'>
+    <Header>
+      <Title>sed (full)</Title>
+      <Description>
+        a pretty fancy equivalent of a sed replace. Tweek the readcount to tune perf on large files.
+      </Description>
+      <Author>BIG DATA FOR HUMANS LTD</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Code>
+      <Script Language='PowerShell' CaretOffset='14'>
+        <![CDATA[
+$FilePath = '';
+$FindExpression = '*';
+$ReplaceExpression = '#';
+$ReadCount = 1000;
+
+Get-Content $FilePath -ReadCount $ReadCount | % { $_ | % {$_ -replace $FindExpression, $ReplaceExpression}};
+]]>
+      </Script>
+    </Code>
+  </Snippet>
+</Snippets>
